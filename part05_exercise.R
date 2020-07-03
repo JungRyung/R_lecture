@@ -16,3 +16,19 @@ mpg <- rename(mpg, highway=hwy)
 head(mpg)
 
 write.csv(mpg, "mpg_new.csv")
+
+
+## midwest 분석
+midwest <- as.data.frame(ggplot2::midwest)
+head(midwest)
+
+midwest <- rename(midwest, total=poptotal)
+midwest <- rename(midwest, asian=popasian)
+midwest$ratio = midwest$asian / midwest$total * 100
+head(midwest,3)
+
+hist(midwest$ratio)
+mean(midwest$ratio)
+midwest$group <- ifelse(midwest$ratio > 0.4872462, "large", "small")
+qplot(midwest$group)
+table(midwest$group)
