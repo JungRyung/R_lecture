@@ -78,3 +78,54 @@ setwd("D:/development/R_lecture/Rdata")
 write.csv(df_midterm, "df_midterm.csv")
 df_mid_test <- read.csv("df_midterm.csv")
 df_mid_test
+
+plot.new()
+
+hist(mpg$hwy,probability=T)
+lines(density(mpg$hwy),col=2, type = 'h',lwd=1)
+shapiro.test(mpg$hwy)
+
+## exam 데이터 파악하기
+exam <- read.csv("csv_exam.csv")
+exam
+head(exam)
+tail(exam)
+View(exam)
+dim(exam)
+
+str(exam)
+summary(exam)
+boxplot(exam$math, horizontal = T, col=4)
+hist(exam$math)
+
+x=sample(0:100,80,replace = T)
+plot(x,pch=ifelse(x>=60,7,15), col=ifelse(x>=60,2,4))
+abline(h=60, col=2, lwd=2)
+
+
+## mpg 데이터 파악하기
+mpg <- as.data.frame(ggplot2::mpg)
+head(mpg)
+tail(mpg)
+
+View(mpg)
+dim(mpg)
+str(mpg)
+
+## dplyr 패키지
+install.packages("dplyr")
+library(dplyr)
+
+df_raw <- data.frame(var1 = c(1, 2, 1),
+                     var2 = c(2, 3, 2))
+df_raw
+df_new <- df_raw  # 복사본 생성
+df_new
+
+# rename() 
+install.packages("reshape")
+library(reshape)
+
+df_new
+rename(df_new, v2 = var2)  # var2를 v2로 수정
+df_new
