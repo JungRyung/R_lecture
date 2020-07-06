@@ -1,55 +1,69 @@
-# Step 1 . ìž‘ì—…ìš© ë””ë ‰í„°ë¦¬ë¥¼ ë¨¼ì € ì§€ì •í•©ë‹ˆë‹¤.
-# ì´ ë””ë ‰í„°ë¦¬ì— ë¶„ì„í•  ë°ì´í„°ë¥¼ ê°€ì ¸ë‹¤ ë†“ê³  ê²°ê³¼ë¬¼ì„ ìƒì„±í•©ë‹ˆë‹¤.
+# Step 1 . ÀÛ¾÷¿ë µð·ºÅÍ¸®¸¦ ¸ÕÀú ÁöÁ¤ÇÕ´Ï´Ù.
+# ÀÌ µð·ºÅÍ¸®¿¡ ºÐ¼®ÇÒ µ¥ÀÌÅÍ¸¦ °¡Á®´Ù ³õ°í °á°ú¹°À» »ý¼ºÇÕ´Ï´Ù.
 
-setwd("./Rdata")  # <-- ìž‘ì—… ë””ë ‰í† ë¦¬ëŠ” ìž„ì˜ë¡œ ì§€ì •í•˜ì„¸ìš” 
+setwd("D:/development/R_lecture/Rdata")  # <-- ÀÛ¾÷ µð·ºÅä¸®´Â ÀÓÀÇ·Î ÁöÁ¤ÇÏ¼¼¿ä 
 
-#Step 2. í•„ìš”í•œ íŒ¨í‚¤ì§€ë¥¼ ì„¤ì¹˜ í•œ í›„ R ì— loading í•©ë‹ˆë‹¤
+#Step 2. ÇÊ¿äÇÑ ÆÐÅ°Áö¸¦ ¼³Ä¡ ÇÑ ÈÄ R ¿¡ loading ÇÕ´Ï´Ù
 
-install.packages("KoNLP") # í•œêµ­ì–´ ê´€ë ¨ ìž‘ì—…ì„ í•  ë•Œ ê¼­ í•„ìš”í•œ ê¸°ëŠ¥ì„ ê°€ì§„ íŒ¨í‚¤ì§€ ìž…ë‹ˆë‹¤
-install.packages("wordcloud") # Word Cloud ìž‘ì—…ì„ í•´ ì£¼ëŠ” íŒ¨í‚¤ì§€ ìž…ë‹ˆë‹¤
+#install.packages("KoNLP") # ÇÑ±¹¾î °ü·Ã ÀÛ¾÷À» ÇÒ ¶§ ²À ÇÊ¿äÇÑ ±â´ÉÀ» °¡Áø ÆÐÅ°Áö ÀÔ´Ï´Ù
+install.packages("wordcloud") # Word Cloud ÀÛ¾÷À» ÇØ ÁÖ´Â ÆÐÅ°Áö ÀÔ´Ï´Ù
+install.packages("wordcloud2") # Word Cloud ÀÛ¾÷À» ÇØ ÁÖ´Â ÆÐÅ°Áö ÀÔ´Ï´Ù
 
-library(KoNLP)  # ì„¤ì¹˜ëœ íŒ¨í‚¤ì§€ë¥¼ Loading í•©ë‹ˆë‹¤.
+#library(KoNLP)  # ¼³Ä¡µÈ ÆÐÅ°Áö¸¦ Loading ÇÕ´Ï´Ù.
 library(wordcloud)
 
-#Step 3. ë¶„ì„ìš© ë°ì´í„°ë¥¼ ë³€ìˆ˜ë¡œ ì½ì–´ ë“¤ìž…ë‹ˆë‹¤.
+install.packages("igraph")
+library(igraph)
 
-txt <- readLines("hong.txt") # txt ë¼ëŠ” ë³€ìˆ˜ì— í•œ ì¤„ ì”© ì½ì–´ ë“¤ìž…ë‹ˆë‹¤.
+#Step 3. ºÐ¼®¿ë µ¥ÀÌÅÍ¸¦ º¯¼ö·Î ÀÐ¾î µéÀÔ´Ï´Ù.
 
-#Step 4. ë°ì´í„° ì¤‘ì—ì„œ ëª…ì‚¬ë§Œ ê³¨ë¼ë‚¸ í›„ nouns ë³€ìˆ˜ì— í• ë‹¹í•©ë‹ˆë‹¤.
+txt <- readLines("hong.txt") # txt ¶ó´Â º¯¼ö¿¡ ÇÑ ÁÙ ¾¿ ÀÐ¾î µéÀÔ´Ï´Ù.
 
-txt <- gsub("ì €","",txt)  # ì œê±°í•  ê¸€ìžë¥¼ ì§€ì •í•©ë‹ˆë‹¤
-txt <- gsub("ìˆ˜","",txt)  # ì œê±°í•  ê¸€ìžë¥¼ ì§€ì •í•©ë‹ˆë‹¤
-txt <- gsub("ë“¤","",txt)  # ì œê±°í•  ê¸€ìžë¥¼ ì§€ì •í•©ë‹ˆë‹¤
+#Step 4. µ¥ÀÌÅÍ Áß¿¡¼­ ¸í»ç¸¸ °ñ¶ó³½ ÈÄ nouns º¯¼ö¿¡ ÇÒ´çÇÕ´Ï´Ù.
+
+txt <- gsub("Àú","",txt)  # Á¦°ÅÇÒ ±ÛÀÚ¸¦ ÁöÁ¤ÇÕ´Ï´Ù
+txt <- gsub("¼ö","",txt)  # Á¦°ÅÇÒ ±ÛÀÚ¸¦ ÁöÁ¤ÇÕ´Ï´Ù
+txt <- gsub("µé","",txt)  # Á¦°ÅÇÒ ±ÛÀÚ¸¦ ÁöÁ¤ÇÕ´Ï´Ù
 
 nouns <- sapply(txt,extractNoun,USE.NAMES=F)
 
-#Step 5. ì¶”ì¶œëœ ëª…ì‚¬ë¥¼ ìƒìœ„ 30 ê°œë§Œ ì¶œë ¥í•´ì„œ í™•ì¸í•©ë‹ˆë‹¤.
+#Step 5. ÃßÃâµÈ ¸í»ç¸¦ »óÀ§ 30 °³¸¸ Ãâ·ÂÇØ¼­ È®ÀÎÇÕ´Ï´Ù.
 
 head(unlist(nouns), 30)
 
-#Step 6. íŒŒì¼ì— ì €ìž¥í•´ ë‘¡ë‹ˆë‹¤. 
+#Step 6. ÆÄÀÏ¿¡ ÀúÀåÇØ µÓ´Ï´Ù. 
 
 write(unlist(nouns),"hong_2.txt") 
 
-#Step 7. ìˆ˜ì • ì™„ë£Œëœ íŒŒì¼ì„ ë‹¤ì‹œ table í˜•ì‹ìœ¼ë¡œ ë³€í™˜í•´ì„œ ë³€ìˆ˜ì— ë¶ˆëŸ¬ë“¤ìž…ë‹ˆë‹¤.
+#Step 7. ¼öÁ¤ ¿Ï·áµÈ ÆÄÀÏÀ» ´Ù½Ã table Çü½ÄÀ¸·Î º¯È¯ÇØ¼­ º¯¼ö¿¡ ºÒ·¯µéÀÔ´Ï´Ù.
 
 rev <- read.table("hong_2.txt")
 
 
-#Step 8. í™”ë©´ì— ê·¸ëž˜í”½ìœ¼ë¡œ ì¶œë ¥í•˜ê¸° ì „ì— text í˜•íƒœë¡œ ê²°ê³¼ë¥¼ í™•ì¸í•´ ë´…ë‹ˆë‹¤
+#Step 8. È­¸é¿¡ ±×·¡ÇÈÀ¸·Î Ãâ·ÂÇÏ±â Àü¿¡ text ÇüÅÂ·Î °á°ú¸¦ È®ÀÎÇØ º¾´Ï´Ù
 
-nrow(rev) # rev ë³€ìˆ˜ì— ëª‡ê±´ì˜ ë°ì´í„°ê°€ ìžˆëŠ”ì§€ í™•ì¸í•´ ë´…ë‹ˆë‹¤
+nrow(rev) # rev º¯¼ö¿¡ ¸î°ÇÀÇ µ¥ÀÌÅÍ°¡ ÀÖ´ÂÁö È®ÀÎÇØ º¾´Ï´Ù
 wordcount <- table(rev)
-head(sort(wordcount, decreasing=T),30)
+kk=head(sort(wordcount, decreasing=T),30)
+kk
+tt=barplot(kk,col=rainbow(30),ylim=c(0,30),las=2)
+text(tt,kk,labels = paste0(kk,"°Ç"),pos=3,cex=1,las=1)
 
-#Step 9. Word Cloud í˜•íƒœë¡œ ê·¸ëž˜í”½ìœ¼ë¡œ ì¶œë ¥í•©ë‹ˆë‹¤
+#Step 9. Word Cloud ÇüÅÂ·Î ±×·¡ÇÈÀ¸·Î Ãâ·ÂÇÕ´Ï´Ù
 
-library(RColorBrewer) # í™”ë©´ì— ì¶œë ¥í•  ì»¬ëŸ¬ë¥¼ ì‚¬ìš©í•  ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ Loading í•©ë‹ˆë‹¤.
-palete <- brewer.pal(9,"Set1") # ê¸€ìž ìƒ‰ê¹”ì„ ì§€ì •í•©ë‹ˆë‹¤.
+library(RColorBrewer) # È­¸é¿¡ Ãâ·ÂÇÒ ÄÃ·¯¸¦ »ç¿ëÇÒ ¶óÀÌºê·¯¸®¸¦ Loading ÇÕ´Ï´Ù.
+palete <- brewer.pal(9,"Set1") # ±ÛÀÚ »ö±òÀ» ÁöÁ¤ÇÕ´Ï´Ù.
 
-wordcloud(names(wordcount),freq=wordcount,scale=c(5,0.5),rot.per=0.25,min.freq=1,
-          random.order=F,random.color=T,colors=palete)
+wordcloud(names(wordcount),
+          freq=wordcount,
+          scale=c(5,0.5),
+          rot.per=0.25,
+          min.freq=1,
+          random.order=F,
+          random.color=T,
+          colors=palete)
 
-#Step 10. ê·¸ë¦¼ìœ¼ë¡œ ì €ìž¥í•©ë‹ˆë‹¤.
+#Step 10. ±×¸²À¸·Î ÀúÀåÇÕ´Ï´Ù.
 
 savePlot("hong.png", type="png")
+
