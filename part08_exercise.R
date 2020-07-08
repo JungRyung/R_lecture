@@ -2,6 +2,7 @@
 mpg <- as.data.frame(ggplot2::mpg)
 midwest <- as.data.frame(ggplot2::midwest)
 
+library(ggplot2)
 ## Q1. x축은 cty, y축은 hwy로 된 산점도
 ggplot(data = mpg, aes(x = cty, y = hwy)) + geom_point()
 
@@ -15,7 +16,7 @@ ggplot(data = midwest, aes(x = poptotal, y = popasian)) + geom_point() +
 ## Q1. 
 kk=table(mpg$class)
 tt=barplot(kk,col=rainbow(8),ylim=c(0,70))
-text(tt,kk,paste0(kk,"대"),pos=3,col=2,cex=2)
+text(tt,kk,paste0(kk,"대"),pos=3,col=2,cex=2,family="NanumGothic")
 df=as.data.frame(mpg %>%
   filter(class=="suv")%>%
   group_by(manufacturer)%>%
@@ -44,3 +45,4 @@ class_mpg <- mpg %>%
 
 ggplot(data = class_mpg, aes(x = class, y = cty)) +
   geom_boxplot()
+

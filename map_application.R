@@ -1,4 +1,4 @@
-setwd("D:/development/R_lecture/Rdata")
+setwd("~/Desktop/Development/R_lecture/Rdata")
 library(dplyr)
 install.packages("ggmap")
 library(ggmap)
