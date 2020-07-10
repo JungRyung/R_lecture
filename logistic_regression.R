@@ -1,5 +1,5 @@
-setwd("D:/development/R_lecture/Rdata")
-#setwd("/Users/ryung/Desktop/Development/R_lecture/Rdata")
+#setwd("D:/development/R_lecture/Rdata")
+setwd("/Users/ryung/Desktop/Development/R_lecture/Rdata")
 
 data=read.csv("programming.csv")
 head(data)
@@ -37,7 +37,7 @@ table(data$disease)
 31/98
 kk=table(data$disease,model4$fitted.values>0.3163265)
 kk
-sum(ss)
+sum(kk)
 reduce_M=c('민감도'=23/31, '특이도'=47/(47+20))
 kk1=table(data$disease,model3$fitted.values>0.3163265)
 kk1
@@ -50,6 +50,7 @@ err_m1
 err_m2
 install.packages("Deducer")
 library(Deducer)
-
 rocplot(model3) # 아래면적이 더 넓을수록 좋은 모델
 rocplot(model4)
+
+

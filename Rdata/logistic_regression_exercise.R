@@ -1,4 +1,5 @@
 setwd("D:/development/R_lecture/Rdata")
+setwd("/Users/ryung/Desktop/Development/R_lecture/Rdata")
 
 data = read.csv("flushot.csv")
 head(data)
@@ -44,3 +45,32 @@ res01
 res015
 res02 # cutoff이 0.2일 때 에러율이 가장 낮다
 
+
+jang=function(data, log_model2){
+  k=seq(0.01,0.5,0.1)
+  
+  n=lengh(k)
+  
+  err_min=vector(length = n)
+  sens=vector(length = n)
+  spec=vector(length = n)
+  
+  for(i in 1:n){
+    tab=table(data$flushot, log_model2$fitted.values.values>k[i])
+    res=c('민감도'=tab[2,2]/sum(tab[2,]),
+          '특이도'=tab[1,1]/sum(tab[1,]),
+          '에러율'=(tab[1,2]+tab[2,1])/sum(tab))
+    sens[i]=tab[2,2]/sum(tab[2,])
+    spec[i]=tab[1,1]/sum(tab[1,])
+    err_min[i]=(tab[1,2]+tab[2,1])/sum(tab)
+    print(res)
+  }
+  
+  index=which(err_min<=min(err_min))
+  print(paste("해당하는 민감도=",sens[min(index)],"이다."))
+  print(paste("해당하는 특이도=",spec[min(index)],"이다."))
+  print(paste("해당하는 에러율=",err_min[min(index)],"이다."))
+  print(paste("해당하는 cutoff=",k[min(index)],"이다."))
+  
+  plot(1-spec,sens,col=2)
+}
