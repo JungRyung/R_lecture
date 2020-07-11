@@ -1,5 +1,6 @@
 crime = read.csv("http://datasets.flowingdata.com/crimeRatesByState-formatted.csv")
 setwd("/Users/ryung/Desktop/Development/R_lecture/Rdata")
+par(family = "AppleGothic")
 
 head(crime)
 
