@@ -10,7 +10,7 @@ rownames(crime)
 
 stars(crime[,2:8],flip.labels = FALSE, draw.segments = TRUE,key.loc=c(15,1.5))
 
-install.packages("aplpack")
+#install.packages("aplpack")
 library(aplpack)
 faces(crime[,2:8])
 
@@ -40,3 +40,4 @@ summary(model2)
 model2
 
 biplot(model)
+

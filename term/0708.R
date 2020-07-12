@@ -1,7 +1,8 @@
 setwd("../Rdata")
+getwd()
 View(attitude)
 cov(attitude)     # 공분산 함수
-cor(attitude)     # 상관계수
+cor(attitude)     # 상관계수.
 with(attitude,cor.test(rating, complaints))
 cor.test(attitude$rating,attitude$complaints)
 plot(attitude$rating,attitude$complaints)

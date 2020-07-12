@@ -1,4 +1,6 @@
-setwd("/Users/ryung/Desktop/Development/R_lecture/term") 
+setwd("../term")
+getwd()
+par(family = "AppleGothic")
 
 data = read.csv("sales_data_new.csv")
 head(data)
