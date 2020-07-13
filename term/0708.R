@@ -55,7 +55,7 @@ summary(backward)
 both=step(out,direction="both",trace=FALSE)
 summary(both)
 ##All subset method
-install.packages("leaps")
+#install.packages("leaps")
 library(leaps)
 leaps=regsubsets(rating~.,data=attitude,nbest=5)
 summary(leaps)
