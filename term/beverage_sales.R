@@ -1,8 +1,8 @@
-setwd("/Users/ryung/Desktop/Development/R_lecture/term")
+setwd("D:/development/R_lecture/term")
 getwd()
-par(family = "AppleGothic")
+#par(family = "AppleGothic")
 
-data = read.csv("sales_data_new.csv")
+data = read.csv("sales_data_new.csv",encoding = "UTF-8")
 head(data)
 
 data[,3:10]
@@ -12,7 +12,7 @@ helth_beverage=data[1:60,]
 helth_beverage
 helth_beverage_feature = helth_beverage[4:10]
 helth_beverage_feature
-vif(helth_beverage_feature)
+#vif(helth_beverage_feature)
 cov(helth_beverage_feature)
 cor(helth_beverage_feature)
 
@@ -31,6 +31,9 @@ summary(model)
 model = lm(QTY~SALEDAY+PRICE+ITEM_CNT+MAXTEMP+RAIN_DAY,helth_beverage_feature)
 summary(model)
 model = lm(QTY~SALEDAY+PRICE+ITEM_CNT+MAXTEMP+RAIN_DAY+HOLIDAY,helth_beverage_feature)
+summary(model)
+
+model = step(lm(QTY~.,data=helth_beverage_feature),direction="both")
 summary(model)
 
 ## All Subsets Regression
