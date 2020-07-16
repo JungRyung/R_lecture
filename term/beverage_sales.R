@@ -1,6 +1,6 @@
-setwd("D:/development/R_lecture/term")
+setwd("/Users/ryung/Desktop/Development/R_lecture/term")
 getwd()
-#par(family = "AppleGothic")
+par(family = "AppleGothic")
 
 data = read.csv("sales_data_new.csv",encoding = "UTF-8")
 head(data)
@@ -33,17 +33,41 @@ summary(model)
 model = lm(QTY~SALEDAY+PRICE+ITEM_CNT+MAXTEMP+RAIN_DAY+HOLIDAY,helth_beverage_feature)
 summary(model)
 
-model = step(lm(QTY~.,data=helth_beverage_feature),direction="both")
-summary(model)
+## Forward Selection
+lm.fit = lm(QTY~1, data = helth_beverage_feature)
+biggest <- formula(lm(QTY~.,helth_beverage_feature))
+biggest
+summary(lm.fit)
+
+lm.fit2 = step(lm.fit, method="forward",scope = biggest)
+summary(lm.fit2)
+
+## Backward Selection
+lm.fit = lm(QTY~., data = helth_beverage_feature)
+lm.fit2 = step(lm.fit, method="backward")
+summary(lm.fit2)
 
 ## All Subsets Regression
 library(leaps)
-leaps=regsubsets(QTY~.,data=helth_beverage_feature,nbest=5)
+leaps=regsubsets(QTY~.,data=helth_beverage_feature,nbest=1)
 summary(leaps)
 plot(leaps)
+plot(leaps,scale="adjr2")
+plot(leaps,scale="Cp")
+
 #best
-model = lm(QTY~SALEDAY+PRICE+RAIN_DAY,helth_beverage_feature)
+model = lm(QTY~ITEM_CNT+PRICE+SALEDAY+RAIN_DAY,helth_beverage_feature)
 summary(model)
+#par(mfrow=c(2, 2))
+plot(model)
+
+#이상치 제거
+helth_beverage_feature = helth_beverage_feature[-c(22,39,54,45,48,37),]
+View(helth_beverage_feature)
+model = lm(QTY~ITEM_CNT+PRICE+SALEDAY+RAIN_DAY,helth_beverage_feature)
+summary(model)
+#par(mfrow=c(1, 1))
+plot(model)
 
 helth_beverage_feature_train = helth_beverage_feature[1:42,]
 helth_beverage_feature_test = helth_beverage_feature[42:60,]
@@ -94,11 +118,12 @@ summary(model)
 
 ## All Subsets Regression
 library(leaps)
-leaps=regsubsets(QTY~.,data=juice_beverage_feature,nbest=6)
+leaps=regsubsets(QTY~.,data=juice_beverage_feature,nbest=1)
 summary(leaps)
 plot(leaps)
+plot(leaps,scale = "adjr2")
 #best
-model = lm(QTY~ITEM_CNT+PRICE+MAXTEMP+SALEDAY+RAIN_DAY,juice_beverage_feature)
+model = lm(QTY~ITEM_CNT+PRICE+MAXTEMP+SALEDAY+RAIN_DAY+HOLIDAY,juice_beverage_feature)
 summary(model)
 
 ## 모든 feature를 포함한 다중회귀
@@ -116,7 +141,7 @@ abline(a=0,b=1,col=2)
 
 
 ## 차 음료에 대한 다중 회귀 분석
-tea_beverage=data[120:180,]
+tea_beverage=data[121:180,]
 tea_beverage
 tea_beverage_feature = tea_beverage[4:10]
 tea_beverage_feature
@@ -139,12 +164,23 @@ summary(model)
 
 ## All Subsets Regression
 library(leaps)
-leaps=regsubsets(QTY~.,data=tea_beverage_feature,nbest=6)
+leaps=regsubsets(QTY~.,data=tea_beverage_feature,nbest=1)
 summary(leaps)
 plot(leaps)
+plot(leaps, scale = "adjr2")
+
 #best
-model = lm(QTY~ITEM_CNT+MAXTEMP+SALEDAY,tea_beverage_feature)
+model = lm(QTY~.,tea_beverage_feature)
 summary(model)
+par(mfrow=c(2,2))
+plot(model)
+
+# 이상치 제거
+tea_beverage_feature = tea_beverage_feature[-c(41,44,51),]
+View(tea_beverage_feature)
+model = lm(QTY~ITEM_CNT+MAXTEMP+SALEDAY+RAIN_DAY+HOLIDAY,tea_beverage_feature)
+summary(model)
+plot(model)
 
 ## 모든 feature를 포함한 다중회귀
 lm.fit = lm(QTY~., data = tea_beverage_feature)
